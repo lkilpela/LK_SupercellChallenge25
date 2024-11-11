@@ -46,5 +46,4 @@ private:
     int m_health;
     int m_maxHealth;
     sf::Time m_LastHit;
-
 };

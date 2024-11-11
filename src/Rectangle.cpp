@@ -9,7 +9,7 @@ Rectangle::Rectangle(sf::Vector2f size, sf::Vector2f position) : m_size(size)
 
 bool Rectangle::collidesWith(Rectangle* pOther)
 {
-        // Get the bounding boxes of both rectangles
+    // Get the bounding boxes of both rectangles
     sf::FloatRect thisBounds(getPosition(), getSize());
     sf::FloatRect otherBounds(pOther->getPosition(), pOther->getSize());
 

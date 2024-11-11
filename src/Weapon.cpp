@@ -35,7 +35,6 @@ void Weapon::update(float deltaTime)
         } 
         else
         {
-            
             float angle = m_timer * m_rotationSpeed / WeaponActiveTime;
             if (!m_clockwise)
             {

@@ -39,5 +39,4 @@ void Vampire::update(float deltaTime)
         return;
     }
     updateMove(pPlayer, deltaTime);
-
 }
