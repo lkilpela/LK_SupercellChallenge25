@@ -27,16 +27,11 @@ Game::Game() :
 
 Game::~Game()
 {
-    saveHighScore();
+    
 }
 
 bool Game::initialise()
 {
-    /*
-        PAY ATTENTION HIVER!
-            If you want to load any assets (fonts, textures) please use the pattern shown below
-    */
-
     if (!m_font.loadFromFile(ResourceManager::getFilePath("Lavigne.ttf")))
     {
         std::cerr << "Unable to load font" << std::endl;
@@ -156,10 +151,9 @@ void Game::update(float deltaTime)
             if (m_pPlayer->isDead())
             {
                 m_state = State::WAITING;
+                saveHighScore();
                 resetLevel();
             }
-            m_scoreText.setString("Score: " + std::to_string(m_score));
-            m_highScoreText.setString("High Score: " + std::to_string(m_highScore));
         }
         break;
     }
@@ -188,6 +182,7 @@ void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
     else
     {
         drawTimerText(target, states);
+        drawScoreText(target, states);
         drawDestroyEnemyText(target, states);
         drawAttackInstructionText(target, states);
     }
@@ -216,9 +211,6 @@ void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
         m_pBossVampire->draw(target, states);
     }
 
-    // Draw score texts
-    target.draw(m_scoreText, states);
-    target.draw(m_highScoreText, states);
 }
 
 void Game::drawStartText(sf::RenderTarget &target, sf::RenderStates states) const
@@ -275,23 +267,32 @@ void Game::drawAttackInstructionText(sf::RenderTarget &target, sf::RenderStates 
     attackInstructionText.setCharacterSize(24);
     attackInstructionText.setFillColor(sf::Color::White);
     attackInstructionText.setStyle(sf::Text::Bold);
-    attackInstructionText.setPosition(25, 20);
+    attackInstructionText.setPosition(25.0f, 20.0f);
     target.draw(attackInstructionText, states);
 }
 
-void Game::drawScoreText(sf::RenderTarget &target, sf::RenderStates states)
+void Game::drawScoreText(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    m_scoreText.setFont(m_font);
-    m_scoreText.setCharacterSize(24);
-    m_scoreText.setFillColor(sf::Color::White);
-    m_scoreText.setStyle(sf::Text::Bold);
-    m_scoreText.setPosition(10.0f, 10.0f);
+    sf::Text scoreText;
+    sf::Text highScoreText;
+    
+    scoreText.setString("Score " + std::to_string(m_score));
+    highScoreText.setString("High Score " + std::to_string(m_highScore));
 
-    m_highScoreText.setFont(m_font);
-    m_highScoreText.setCharacterSize(24);
-    m_highScoreText.setFillColor(sf::Color::White);
-    m_highScoreText.setStyle(sf::Text::Bold);
-    m_highScoreText.setPosition(ScreenWidth - 200.0f, 10.0f);
+    scoreText.setFont(m_font);
+    scoreText.setCharacterSize(24);
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setStyle(sf::Text::Bold);
+    scoreText.setPosition(100.0f, 50.0f);
+
+    highScoreText.setFont(m_font);
+    highScoreText.setCharacterSize(24);
+    highScoreText.setFillColor(sf::Color::White);
+    highScoreText.setStyle(sf::Text::Bold);
+    highScoreText.setPosition(ScreenWidth - 250.0f, 10.0f);
+
+    target.draw(scoreText, states);
+    target.draw(highScoreText, states);
 }
 
 void Game::loadHighScore()
@@ -362,7 +363,6 @@ void Game::vampireSpawner(float deltaTime)
         randomYPos += yMinDist;
 
     sf::Vector2f spawnPosition = sf::Vector2f(randomXPos, randomYPos);
-    // Spawn Boss Vampire after 5 seconds
     if (m_bossVampireCooldown <= 0.0f && !m_pBossVampire)
     {
         m_pBossVampire = std::make_unique<BossVampire>(this, spawnPosition);

@@ -5,7 +5,6 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <memory>
 #include "Constants.h"
 #include "HealthBar.h"
@@ -56,7 +55,7 @@ public:
     void drawTimerText(sf::RenderTarget &target, sf::RenderStates states) const;
     void drawDestroyEnemyText(sf::RenderTarget &target, sf::RenderStates states) const;
     void drawAttackInstructionText(sf::RenderTarget &target, sf::RenderStates states) const;
-    void drawScoreText(sf::RenderTarget &target, sf::RenderStates states);
+    void drawScoreText(sf::RenderTarget &target, sf::RenderStates states) const;
 
     void vampireSpawner(float deltaTime);
     void collectibleSpawner(float deltaTime);
@@ -107,8 +106,6 @@ private:
     sf::Sound m_playerPickupSound;
     sf::Sound m_weaponSound;
 
-    sf::Text m_scoreText;
-    sf::Text m_highScoreText;
     int m_score = 0;
     int m_highScore = 0;
 };
