@@ -1,48 +1,48 @@
-# Coding Challenge
+# Supercell Coding Test
+Hi! This is the base code structure for the Supercell coding test.
+The code below is a very basic and intensionally broken version of a generic survivor game.
 
-## Overview
-This repository contains the solution for the coding challenge using SFML. The goal of this challenge is to create a simple game using the SFML library.
+## Disclaimer
 
-## Requirements
-- SFML 2.5.1 or later
-- CMake 3.10 or later
-- A C++17 compatible compiler
+We strongly recommend that you:
+- Place assets in the `/assets` folder and use the `ResourceManager` class to get file paths.
+    - Example usage: `m_font.loadFromFile(ResourceManager::getFilePath("Lavigne.ttf"))`
+    - Look in `/src/Game.cpp` for examples of loading fonts and textures.
+- Use CMake to build your project and do not modify the CMakeLists.txt file.
+- Test on different platforms to assure your submission builds and functions the same.
 
-## 🕹️ How to Play
-- **Control**:
-    - `W` or `↑` to move up,
-    - `A` or `←` to move left
-    - `S` or `↓` to move down
-    - `D` or `→` to move right
-- **Attack**:
-    - `left mouse` or `space` to kill enemies
-- **Pause game**:
-    - `P` to pause game
-- **Collect items**:
-    -  Move over items to collect them
+We will build your project with the build steps outlined below. If your submission produces any build errors we will most likely end the evaluation there.
 
+## Prerequisites
 
-## Setup
-To set up the project, follow these steps:
+NOTE: Hive computers (should) have these dependencies installed already.
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/lkilpela/LK_SupercellChallenge25
-    cd LK_SupercellChallenge25
-    ```
+You must have [CMake](https://cmake.org/) version 3.22.1 or later installed to build this project.
 
-2. Create a build directory & configure the project with CMake:
-    ```sh
-    cmake -B ./build
-    ```
-
-3. Build the project:
-    ```sh
-    cmake --build ./build -- -j4
-    ```
-
-## Usage
-To run the project, use the following command:
-```sh
-./survivor
+If you are on Linux, make sure to install SFML's dependencies. For Debian-based distros:
 ```
+sudo apt update
+sudo apt install \
+    libxrandr-dev \
+    libxcursor-dev \
+    libudev-dev \
+    libfreetype-dev \
+    libopenal-dev \
+    libflac-dev \
+    libvorbis-dev \
+    libgl1-mesa-dev \
+    libegl1-mesa-dev
+```
+
+## Building
+
+Simply run `cmake -B build` and `cmake --build build`. This builds the executable in `./build/bin/`.
+
+The exact location of the executable may differ depending on your system and compiler. Example locations are `./build/bin/survive` and `./build/bin/Debug/survive.exe`.
+
+Alternatively, you can specify a generator suited for your toolchain.
+- `cmake -B build -G"Unix Makefiles"`
+- `cmake -B build -G"Visual Studio 17 2022"`
+- `cmake -B build -GXcode`
+
+Run `cmake -G` to list all available generators.
