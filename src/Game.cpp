@@ -92,6 +92,8 @@ void Game::resetLevel()
     m_collectibleCooldown = 5.0f;
     m_nextCollectibleCooldown = 5.0f;
 
+    m_score = 0;
+
     m_pPlayer->initialise();
     m_playerHealthBar.setHealthBarSize(1.0f);
 
