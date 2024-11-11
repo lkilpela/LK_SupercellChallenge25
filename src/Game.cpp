@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 #include "ResourceManager.h"
 #include "InputHandler.h"

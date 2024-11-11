@@ -1,5 +1,6 @@
 #include "Weapon.h"
 #include "Constants.h"
+#include <cmath>
 
 Weapon::Weapon() : Rectangle(sf::Vector2f(0, 0))
 {
